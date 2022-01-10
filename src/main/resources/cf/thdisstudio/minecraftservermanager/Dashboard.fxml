@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane prefHeight="440.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cf.thdisstudio.minecraftservermanager.Dashboard">
+   <children>
+      <Label text="대쉬보드">
+         <font>
+            <Font name="Segoe UI Light" size="37.0" />
+         </font>
+      </Label>
+      <TabPane layoutY="53.0" prefHeight="387.0" prefWidth="753.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="서버 관리">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane fx:id="Logs" layoutX="32.0" layoutY="50.0" prefHeight="259.0" prefWidth="473.0" />
+                        <TextField fx:id="Send" layoutX="32.0" layoutY="309.0" onAction="#OnSend" prefHeight="11.0" prefWidth="473.0" />
+                        <Label layoutX="20.0" layoutY="36.0" text="로그" />
+                        <Button layoutX="534.0" layoutY="32.0" mnemonicParsing="false" style="-fx-background-color: #00FF00;" text="시작" />
+                        <Button layoutX="650.0" layoutY="32.0" mnemonicParsing="false" style="-fx-background-color: red;" text="종료" />
+                        <Button layoutX="586.0" layoutY="32.0" mnemonicParsing="false" style="-fx-background-color: yellow;" text="재시작" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="245.0" layoutX="512.0" layoutY="64.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                        <Label fx:id="IP" layoutX="520.0" layoutY="73.0" prefHeight="14.0" prefWidth="187.0" text="현재 IP: " />
+                        <Label fx:id="RamUsage" layoutX="520.0" layoutY="93.0" prefHeight="14.0" prefWidth="191.0" text="현재 RAM 사용량:" />
+                        <Label layoutX="520.0" layoutY="113.0" text="현재 접속중인 플레이어수:" />
+                        <Label fx:id="PlayerCount" layoutX="534.0" layoutY="127.0" prefHeight="14.0" prefWidth="135.0" text="N/A" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="월드 설정">
+               <content>
+                  <WebView prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="서버 정보">
+               <content>
+                  <WebView prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="플러그인">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+          <Tab text="서버 설정">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
