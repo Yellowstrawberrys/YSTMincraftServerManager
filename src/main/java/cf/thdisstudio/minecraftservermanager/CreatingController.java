@@ -1,5 +1,7 @@
 package cf.thdisstudio.minecraftservermanager;
 
+import cf.thdisstudio.minecraftservermanager.Data.SaveAndLoad;
+import cf.thdisstudio.minecraftservermanager.Data.ServerCreationData;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +15,6 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.charset.StandardCharsets;
 
 public class CreatingController {
 
@@ -36,7 +37,7 @@ public class CreatingController {
     public void initialize() {
         new Thread(() -> {
             Status.setText("서버 폴더를 생성중");
-            String rootFolder = System.getenv("APPDATA")+"\\YST Minecraft Server Manager\\Servers\\"+ServerCreationData.version+"\\";
+            String rootFolder = System.getenv("APPDATA")+"\\YST Minecraft Server Manager\\Servers\\"+ ServerCreationData.version+"\\";
             File folder = new File(rootFolder);
             if(!folder.exists())
                 folder.mkdirs();
@@ -100,35 +101,47 @@ public class CreatingController {
                     writer.flush();
                     writer.close();
                     Platform.runLater(() -> progressBarr.setProgress(0.9));
+                    SaveAndLoad.newServer(ServerCreationData.name, ServerCreationData.Description, ServerCreationData.version, String.valueOf(ServerCreationData.serverType), ServerCreationData.UsingRam, currentFolder);
+                    CurrentData.selectedServer = currentFolder;
                     Platform.runLater(() -> {Status.setText("🎉 생성 완료! (5초 후 관리창으로 넘어갑니다.)");progressBarr.setProgress(1);});
-                    //서버 첫 시작
-                    Platform.runLater(() -> progressBarr.setProgress(0.91));
-                    ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", "java",
-                            "-server", "-Xms512M", "-Xmx"+((int) (ServerCreationData.UsingRam*1024))+"M"
-                    , "-jar", "server.jar", "nogui");
-                    processBuilder.directory(currentFolder);
-                    Platform.runLater(() -> progressBarr.setProgress(0.93));
-//                    processBuilder.command("java -server -XX:+AggressiveOpts -XX:+UseConcMarkSweepGC " +
-//                            "-XX:+UnlockExperimentalVMOptions -XX:+UseParNewGC -XX:+ExplicitGCInvokesConcurrent " +
-//                            "-XX:+UseFastAccessorMethods -XX:+UseConcMarkSweepGC -XX:+UseParNewGC " +
-//                            "-XX:+CMSIncrementalPacing -XX:+AggressiveOpts -Xms512mb -Xmx"+((int) (ServerCreationData.UsingRam*1024))+"b -jar server.jar");
-                    Process process = processBuilder.start();
-                    Platform.runLater(() -> {progressBarr.setProgress(0.95);Status.setText("서버를 시작하는 중...");Progress.setProgress(-0.0930);});
-                    BufferedReader input = new BufferedReader(new
-                            InputStreamReader(process.getInputStream()));
-                    System.out.println(process.isAlive());
-                    String line;
-                    while ((line = input.readLine()) != null) {
-                        if(line.contains("Done (") && line.contains("For help, type \"help\"")){
-                            Platform.runLater(() -> {Status.setText("🎉 생성 완료! (5초 후 관리창으로 넘어갑니다.)");progressBarr.setProgress(1);});
-                            process.getOutputStream().write("stop".getBytes(StandardCharsets.UTF_8));
+                    Thread.sleep(5000);
+                    Platform.runLater(() -> {
+                        try {
+                            YSTApplication.sta.setScene(new Scene(new FXMLLoader(getClass().getResource("Dashboard.fxml")).load(), 752, 440));
+                        } catch (IOException e) {
+                            YSTApplication.error(e);
                         }
-                        System.out.println(line);
-                    }
-                    input.close();
+                    });
+                    //서버 첫 시작
+//                    Platform.runLater(() -> progressBarr.setProgress(0.91));
+//                    ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", "java",
+//                            "-server", "-Xms512M", "-Xmx"+((int) (ServerCreationData.UsingRam*1024))+"M"
+//                    , "-jar", "server.jar", "nogui");
+//                    processBuilder.directory(currentFolder);
+//                    Platform.runLater(() -> progressBarr.setProgress(0.93));
+////                    processBuilder.command("java -server -XX:+AggressiveOpts -XX:+UseConcMarkSweepGC " +
+////                            "-XX:+UnlockExperimentalVMOptions -XX:+UseParNewGC -XX:+ExplicitGCInvokesConcurrent " +
+////                            "-XX:+UseFastAccessorMethods -XX:+UseConcMarkSweepGC -XX:+UseParNewGC " +
+////                            "-XX:+CMSIncrementalPacing -XX:+AggressiveOpts -Xms512mb -Xmx"+((int) (ServerCreationData.UsingRam*1024))+"b -jar server.jar");
+//                    Process process = processBuilder.start();
+//                    Platform.runLater(() -> {progressBarr.setProgress(0.95);Status.setText("서버를 시작하는 중...");Progress.setProgress(-0.0930);});
+//                    BufferedReader input = new BufferedReader(new
+//                            InputStreamReader(process.getInputStream()));
+//                    System.out.println(process.isAlive());
+//                    String line;
+//                    while ((line = input.readLine()) != null) {
+//                        if(line.contains("Done (") && line.contains("For help, type \"help\"")){
+//                            Platform.runLater(() -> {Status.setText("🎉 생성 완료! (5초 후 관리창으로 넘어갑니다.)");progressBarr.setProgress(1);});
+//                            process.getOutputStream().write("stop".getBytes(StandardCharsets.UTF_8));
+//                        }
+//                        System.out.println(line);
+//                    }
+//                    input.close();
                 }catch (MalformedURLException e) {
                     YSTApplication.error(e);
                 } catch (IOException e) {
+                    YSTApplication.error(e);
+                } catch (InterruptedException e) {
                     YSTApplication.error(e);
                 }
             }

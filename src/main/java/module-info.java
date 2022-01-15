@@ -14,4 +14,6 @@ module cf.thdisstudio.minecraftservermanager {
 
     opens cf.thdisstudio.minecraftservermanager to javafx.fxml;
     exports cf.thdisstudio.minecraftservermanager;
+    exports cf.thdisstudio.minecraftservermanager.Data;
+    opens cf.thdisstudio.minecraftservermanager.Data to javafx.fxml;
 }

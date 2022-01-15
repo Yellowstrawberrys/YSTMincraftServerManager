@@ -1,5 +1,6 @@
 package cf.thdisstudio.minecraftservermanager;
 
+import cf.thdisstudio.minecraftservermanager.Data.SaveAndLoad;
 import javafx.application.Platform;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
@@ -42,8 +43,17 @@ public class MainController {
             for(File versionFolder : file.listFiles(File::isDirectory)){
                 for(File ServerFolder : versionFolder.listFiles(File::isDirectory)){
                     i++;
-                    stb.append(String.format(ServerDiv, versionFolder.getName()+"."+ServerFolder.getName(), ServerFolder.getName(), versionFolder.getName(), "Null",
-                            "https://"+versionFolder.getName()+"NAME"+ServerFolder.getName()+".YSTSERVERMANAGER"));
+                    try {
+                        String[] sts = SaveAndLoad.loadServer(ServerFolder);
+                        if(sts == null)
+                            return;
+                        else {
+                            stb.append(String.format(ServerDiv, sts[2] + "." + sts[0], sts[0], sts[2], sts[1],
+                                    "https://" + versionFolder.getName() + "NAME" + ServerFolder.getName() + ".YSTSERVERMANAGER"));
+                        }
+                    } catch (IOException e) {
+                        YSTApplication.error(e);
+                    }
                 }
             }
             stb.append("</body>" +

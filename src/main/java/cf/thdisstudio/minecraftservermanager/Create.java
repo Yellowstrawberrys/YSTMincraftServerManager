@@ -1,8 +1,8 @@
 package cf.thdisstudio.minecraftservermanager;
 
+import cf.thdisstudio.minecraftservermanager.Data.ServerCreationData;
+import cf.thdisstudio.minecraftservermanager.Data.ServerType;
 import javafx.application.Platform;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.stage.FileChooser;
 import org.json.JSONArray;
@@ -178,6 +177,7 @@ public class Create {
                 ServerCreationData.downloadingURL = downloadLinks.get(ServerVersion);
                 ServerCreationData.UsingRam = this.Ram;
                 ServerCreationData.icon = this.ServerIcon.getImage();
+                ServerCreationData.serverType = ServerType.valueOf(ServerEngine.getValue());
                 YSTApplication.sta.setScene(new Scene(new FXMLLoader(YSTApplication.class.getResource("Creating.fxml")).load(), 752, 440));
             }
         }catch (Exception e){

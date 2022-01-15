@@ -1,0 +1,16 @@
+{
+  "Name": "xcvzzxcvv",
+  "Description": "xcvxcv",
+  "Version": "1.12.2",
+  "Type": "Bukkit",
+  "Ram": "3.0",
+  "Custom-VM-Option": "",
+  "Online": {
+    "isUsing": false,
+    "Port": 25575,
+    "Password": "ReallyGoodPassword",
+    "Permissions": [
+      "View Logs"
+    ]
+  }
+}
