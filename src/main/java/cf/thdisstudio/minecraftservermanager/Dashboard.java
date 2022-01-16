@@ -6,12 +6,15 @@ import cf.thdisstudio.minecraftservermanager.Data.ServerType;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.Dragboard;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 import static cf.thdisstudio.minecraftservermanager.CurrentData.selectedServer;
 
@@ -31,6 +34,9 @@ public class Dashboard {
 
     @FXML
     public TabPane Tabs;
+
+    @FXML
+    public ListView PluginList;
 
     Thread logging;
     Thread ErrorLogging;
@@ -55,6 +61,39 @@ public class Dashboard {
             ServerCreationData.UsingRam = Double.parseDouble(serverData[4]);
             if(serverData[3].equals("Vanilla")){
                 Tabs.getTabs().remove(3,5);
+            }else{
+                if(!new File(selectedServer.getAbsolutePath() + "\\plugins").exists())
+                    new File(selectedServer.getAbsolutePath() + "\\plugins").mkdirs();
+                for(File plugin : Objects.requireNonNull(new File(selectedServer.getAbsolutePath() + "\\plugins").listFiles(File::isFile))){
+                    PluginList.getItems().add(plugin.getName());
+                }
+                PluginList.setOnDragDropped(event -> {
+                    Dragboard db = event.getDragboard();
+                    final boolean isAccepted = db.getFiles().get(0).getName().toLowerCase().endsWith(".jar");
+                    if(db.hasFiles() && isAccepted){
+                        for(File plugin : db.getFiles()){
+                            File copied = new File(selectedServer.getAbsolutePath()+"\\plugins\\"+plugin.getName());
+                            try (
+                                    InputStream in = new BufferedInputStream(
+                                            new FileInputStream(plugin));
+                                    OutputStream out = new BufferedOutputStream(
+                                            new FileOutputStream(copied))) {
+
+                                byte[] buffer = new byte[1024];
+                                int lengthRead;
+                                while ((lengthRead = in.read(buffer)) > 0) {
+                                    out.write(buffer, 0, lengthRead);
+                                    out.flush();
+                                }
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }else
+                        event.consume();
+                });
             }
             LLog.textProperty().addListener((ChangeListener<Object>) (observable, oldValue, newValue) -> {LLog.setScrollTop(0);LLog.setScrollLeft(0);});
         } catch (IOException e) {
@@ -132,6 +171,7 @@ public class Dashboard {
                         System.out.println(line);
                     }
                     input.close();
+                    LLogChecker();
                 }catch (Exception e){
                     YSTApplication.error(e);
                 }
@@ -147,6 +187,7 @@ public class Dashboard {
                         System.out.println(line);
                     }
                     input.close();
+                    LLogChecker();
                 }catch (Exception e){
                     YSTApplication.error(e);
                 }
@@ -155,6 +196,12 @@ public class Dashboard {
             ErrorLogging.start();
         } catch (IOException e) {
             YSTApplication.error(e);
+        }
+    }
+
+    public void LLogChecker(){
+        if(LLog.getText().length() > 6000){
+            Platform.runLater(() -> LLog.setText(LLog.getText(LLog.getLength()-6000, LLog.getLength())));
         }
     }
 }

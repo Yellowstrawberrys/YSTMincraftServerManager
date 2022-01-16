@@ -3,5 +3,5 @@
     src: url('fonts/font1.ttf');
 }
 text{
-    font-family: 'IBM Plex Sans KR', sans-serif;
+    -fx-font-family: 'IBM Plex Sans KR', sans-serif;
 }

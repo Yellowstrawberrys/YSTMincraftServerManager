@@ -30,7 +30,7 @@ public class YSTApplication extends Application {
         stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("yst.png"))));
         stage.setScene(scene);
         stage.show();
-        stage.setOnCloseRequest(e -> {CurrentData.CurrentServer.destroyForcibly();Platform.exit();System.exit(0);});
+        stage.setOnCloseRequest(e -> {try{CurrentData.CurrentServer.destroyForcibly();}catch (NullPointerException e1){}Platform.exit();System.exit(0);});
         sta = stage;
     }
 

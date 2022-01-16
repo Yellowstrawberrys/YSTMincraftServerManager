@@ -21,25 +21,25 @@
          </font>
       </Label>
       <TextField fx:id="name" layoutX="43.0" layoutY="100.0" />
-      <Label id="text" layoutX="37.0" layoutY="85.0" prefHeight="15.0" prefWidth="25.0" styleClass="MainCss.css" stylesheets="@MainCss.css" text="이름:">
+      <Label id="text" layoutX="37.0" layoutY="85.0" prefHeight="15.0" prefWidth="43.0" styleClass="MainCss.css" stylesheets="@MainCss.css" text="이름:">
          <font>
             <Font size="9.0" />
          </font>
       </Label>
-      <Label id="text" layoutX="37.0" layoutY="143.0" prefHeight="15.0" prefWidth="25.0" styleClass="MainCss.css" stylesheets="@MainCss.css" text="서버:">
+      <Label id="text" layoutX="37.0" layoutY="143.0" prefHeight="15.0" prefWidth="43.0" styleClass="MainCss.css" stylesheets="@MainCss.css" text="서버:">
          <font>
             <Font size="9.0" />
          </font>
       </Label>
       <ComboBox fx:id="ServerEngine" layoutX="43.0" layoutY="158.0" prefHeight="22.0" prefWidth="162.0" />
-      <Label id="text" layoutX="37.0" layoutY="202.0" prefHeight="15.0" prefWidth="25.0" styleClass="MainCss.css" stylesheets="@MainCss.css" text="버전:">
+      <Label id="text" layoutX="37.0" layoutY="202.0" prefHeight="15.0" prefWidth="43.0" styleClass="MainCss.css" stylesheets="@MainCss.css" text="버전:">
          <font>
             <Font size="9.0" />
          </font>
       </Label>
       <ComboBox fx:id="version" layoutX="43.0" layoutY="217.0" prefHeight="22.0" prefWidth="162.0" />
       <Slider fx:id="RamScroll" layoutX="54.0" layoutY="276.0" onMouseDragged="#RamScrollChanged" />
-      <Label id="text" layoutX="37.0" layoutY="261.0" prefHeight="15.0" prefWidth="68.0" styleClass="MainCss.css" stylesheets="@MainCss.css" text="램 최대 사용량:">
+      <Label id="text" layoutX="37.0" layoutY="261.0" prefHeight="15.0" prefWidth="85.0" styleClass="MainCss.css" stylesheets="@MainCss.css" text="램 최대 사용량:">
          <font>
             <Font size="9.0" />
          </font>
@@ -55,7 +55,7 @@
          </font>
       </Label>
       <Line endX="641.9999389648438" endY="-1.9073486328125E-5" layoutX="110.0" layoutY="64.0" startX="-110.0" startY="-1.9073486328125E-5" />
-      <Label id="text" layoutX="37.0" layoutY="313.0" prefHeight="15.0" prefWidth="33.0" styleClass="MainCss.css" stylesheets="@MainCss.css" text="아이콘:">
+      <Label id="text" layoutX="37.0" layoutY="313.0" prefHeight="15.0" prefWidth="43.0" styleClass="MainCss.css" stylesheets="@MainCss.css" text="아이콘:">
          <font>
             <Font size="9.0" />
          </font>
@@ -71,7 +71,7 @@
             <Cursor fx:constant="HAND" />
          </cursor></ImageView>
       <TextField fx:id="Description" layoutX="298.0" layoutY="97.0" />
-      <Label id="text" layoutX="292.0" layoutY="82.0" prefHeight="15.0" prefWidth="25.0" styleClass="MainCss.css" stylesheets="@MainCss.css" text="설명:">
+      <Label id="text" layoutX="292.0" layoutY="82.0" prefHeight="15.0" prefWidth="43.0" styleClass="MainCss.css" stylesheets="@MainCss.css" text="설명:">
          <font>
             <Font size="9.0" />
          </font>
