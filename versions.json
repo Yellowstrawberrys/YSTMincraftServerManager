@@ -1,10 +1,10 @@
 {
-  versions: [
+  "versions": [
     {
-      Version: "BETA-0.0.0.1",
-      BuildNum: "unknown",
-      UpdateLog: "unknown",
-      Date: ""
+      "Version": "BETA-0.0.0.1",
+      "BuildNum": "unknown",
+      "UpdateLog": "unknown",
+      "Date": ""
     }
   ]
 }
