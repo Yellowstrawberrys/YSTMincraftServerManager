@@ -1,7 +1,0 @@
-@font-face {
-    font-family: 'IBM Plex Sans KR';
-    src: url('fonts/font1.ttf');
-}
-text{
-    -fx-font-family: 'IBM Plex Sans KR', sans-serif;
-}
